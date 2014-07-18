@@ -6,7 +6,7 @@ pip install Flask-SQLAlchemy
 pip install py-bcrypt  # For simple authentication
 pip install requests   # For requests to other services
 pip install pyaml      # For config reading
-pip install pyjade
+pip install pyjade     # See : http://jade-lang.com/
 ```
 
 Needed for MySQL
