@@ -82,7 +82,7 @@ c = connection.cursor()
 t_now="2014-05-15 14:00:00"
 ts = datetime.datetime.strptime(t_now, "%Y-%m-%d %H:%M:%S")  # 2014-05-15 14:00:00
 v = time.mktime(ts.timetuple())
-#print v
+print "Special time = %d" % (v,)
 
 if cmd=="current":
   c.execute("SELECT ts,vid,lat,lon,course,speed FROM ais WHERE ts>? AND ts<? ORDER BY vid,ts", [v-20*60, v])  # X mins
@@ -219,17 +219,33 @@ if cmd=="trails" or (trails_from_markers is not None):
       lat_ = lat + t*scale*speed * math.cos(math.radians(course))
       lon_ = lon + t*scale*speed * math.sin(math.radians(course))
       
-      arr.append([ts + t*5*60, lat_, lon_, course, speed]) # This is what it should be...
-      #arr.append([[ts + t*5*60, lat_, lon_, course, speed]]) 
+      arr.append([ts + t*5*60, lat_, lon_, course, speed, vid]) # This is what it should be...
       
     res[vid]=arr
-  print "// { vid : [ [ts, lat_, lon_, course, speed], ... ], ... }"
+  print "// { vid : [ [ts, lat_, lon_, course, speed, vid], ... ], ... }"
   print json.dumps(res)    
 
+"""
+.schema mv
+CREATE TABLE mv (vid INT, 
+mvid INT, mvnum INT, 
+advice_source CHAR(1), 
+advice_ts INT,  start_ts INT, end_ts INT, 
+status CHAR(1), 
+mv_type CHAR(1), 
+mv_open CHAR(1), 
+resp_from CHAR(1), resp_to CHAR(1), 
+loc_from CHAR(5),  loc_to CHAR(5), 
+draft INT, 
+ts INT);
+"""
 
+# SELECT advice_ts, start_ts, end_ts, loc_from, loc_to FROM mv WHERE ts<1400133600 AND vid=84291;
+# SELECT ts,advice_ts, start_ts, end_ts, loc_from, loc_to FROM mv WHERE vid=84291 ORDER BY advice_ts;
+# SELECT * FROM ais WHERE vid=84291 ORDER BY ts DESC;  # This one goes everywhere...
 
-
-
+# More interesting, 2 trips into SG :
+#SELECT ts,advice_ts, start_ts, end_ts, loc_from, loc_to FROM mv WHERE vid=89575 AND advice_ts<1400133600 ORDER BY start_ts DESC;
 
 
 
