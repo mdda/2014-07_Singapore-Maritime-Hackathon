@@ -24,13 +24,14 @@
         height: 8000px;        
     }
     
+    /*
     .SvgOverlay path {
         stroke: Orange;
         stroke-width: 2px;
         fill: Orange;
         fill-opacity: .8;
     }
-    
+    */
   </style>
 </head>
 <body>
@@ -76,98 +77,101 @@ $(function () {
   var overlay = new google.maps.OverlayView();
   overlay.onAdd = function () {
 
-      var layer = d3.select(this.getPanes().overlayLayer).append("div").attr("class", "SvgOverlay");
-      var svg = layer.append("svg");
-      var adminDivisions = svg.append("g").attr("class", "AdminDivisions");
+    var layer = d3.select(this.getPanes().overlayLayer).append("div").attr("class", "SvgOverlay");
+    var svg = layer.append("svg");
+    var adminDivisions = svg.append("g").attr("class", "AdminDivisions");
 
-      overlay.draw = function () {
-          var markerOverlay = this;
-          var overlayProjection = markerOverlay.getProjection();
+    overlay.draw = function () {
+      var markerOverlay = this;
+      var overlayProjection = markerOverlay.getProjection();
 
-          // Turn the overlay projection into a d3 projection
-          var googleMapProjection = function (coordinates) {
-              var googleCoordinates = new google.maps.LatLng(coordinates[1], coordinates[0]);
-              var pixelCoordinates = overlayProjection.fromLatLngToDivPixel(googleCoordinates);
-              return [pixelCoordinates.x + 4000, pixelCoordinates.y + 4000];
-          }
+      // Turn the overlay projection into a d3 projection
+      var googleMapProjection = function (coordinates) {
+          var googleCoordinates = new google.maps.LatLng(coordinates[1], coordinates[0]);
+          var pixelCoordinates = overlayProjection.fromLatLngToDivPixel(googleCoordinates);
+          return [pixelCoordinates.x + 4000, pixelCoordinates.y + 4000];
+      }
 
-          //path = d3.geo.path().projection(googleMapProjection);
-          
-          //console.log(googleMapProjection([0,0]));
-          
-          /*
-          adminDivisions.selectAll("path")
-              .data(geoJson.features)
-              .attr("d", path) // update existing paths
-          .enter().append("svg:path")
-              .attr("d", path);
-          */
-          /*
-          adminDivisions.selectAll("path")
-              .data(d3.entries({"pt1":[30.2173829, -26.8686948]}))
-              .attr("d", path)
-            .enter().append("svg.circle")
-              .attr("r", 4.5)
-              .attr("d", path)
-          ;
-          */
-          
-          // http://stackoverflow.com/questions/11909099/overlay-d3-paths-onto-google-maps
-          // http://stackoverflow.com/questions/20987535/plotting-points-on-a-map-with-d3
+      //path = d3.geo.path().projection(googleMapProjection);
+      
+      //console.log(googleMapProjection([0,0]));
+      
+      /*
+      adminDivisions.selectAll("path")
+          .data(geoJson.features)
+          .attr("d", path) // update existing paths
+      .enter().append("svg:path")
+          .attr("d", path);
+      */
+      /*
+      adminDivisions.selectAll("path")
+          .data(d3.entries({"pt1":[30.2173829, -26.8686948]}))
+          .attr("d", path)
+        .enter().append("svg.circle")
+          .attr("r", 4.5)
+          .attr("d", path)
+      ;
+      */
+      
+      // http://stackoverflow.com/questions/11909099/overlay-d3-paths-onto-google-maps
+      // http://stackoverflow.com/questions/20987535/plotting-points-on-a-map-with-d3
 
-          function proj(d) {
-            return "translate(" + googleMapProjection([
-              d.location.longitude,
-              d.location.latitude
-            ]) + ")"
-          }
-          
-          //adminDivisions.selectAll(".pin").exit().remove();
-          
-          adminDivisions.selectAll(".pin")
-              .data(places)
-              .attr("transform", proj)
-            .enter().append("circle")
-              .attr("class", "pin")
-              .attr("r", 15)
-              .attr("fill", "red")
-              .attr("transform", proj)
-          ;
-            
-          // http://jaketrent.com/post/rotate-gauge-needle-in-d3/
-          function triangle_rotated(l,b, angle) {
-            var theta = angle * Math.PI / 180;  // 0=pointing west, clockwise is positive
+      function proj(d) {
+        return "translate(" + googleMapProjection([
+          d.location.longitude,
+          d.location.latitude
+        ]) + ")"
+      }
+      
+      // http://jaketrent.com/post/rotate-gauge-needle-in-d3/
+      function triangle_ship(speed, gt, course) {
+        return triangle_rotated(speed*2, 5, course+90);
+      }
+      
+      function triangle_rotated(l,b, angle) {
+        var theta = angle * Math.PI / 180;  // 0=pointing west, clockwise is positive
 
-            var centerX = 0;
-            var centerY = 0;
+        var centerX = 0;
+        var centerY = 0;
 
-            var topX = centerX - l * Math.cos(theta);
-            var topY = centerY - l * Math.sin(theta);
+        var topX = centerX - l * Math.cos(theta);
+        var topY = centerY - l * Math.sin(theta);
 
-            var leftX = centerX - b * Math.cos(theta - Math.PI / 2)
-            var leftY = centerY - b * Math.sin(theta - Math.PI / 2)
+        var leftX = centerX - b * Math.cos(theta - Math.PI / 2)
+        var leftY = centerY - b * Math.sin(theta - Math.PI / 2)
 
-            var rightX = centerX - b * Math.cos(theta + Math.PI / 2)
-            var rightY = centerY - b * Math.sin(theta + Math.PI / 2)
+        var rightX = centerX - b * Math.cos(theta + Math.PI / 2)
+        var rightY = centerY - b * Math.sin(theta + Math.PI / 2)
 
-            //return "M #{leftX} #{leftY} L #{topX} #{topY} L #{rightX} #{rightY}"
-            return ["M", leftX, leftY, "L", topX, topY, "L", rightX, rightY].join(' ');
-          }
-          
-          adminDivisions.selectAll(".puff")
-              .data(places)
-              .attr("transform", proj)
-            .enter().append("svg:path")
-              //.attr("d", "m0,-5L20,0L0,5z")
-              .attr("d", triangle_rotated(20,5,90))
-              .attr("class", "puff")
-              .attr("fill", "blue")
-              .attr("transform", proj)
-          ;
-            
-          console.log("ASDSADA");
-          
-      };
+        //return "M #{leftX} #{leftY} L #{topX} #{topY} L #{rightX} #{rightY}"
+        return ["M", leftX, leftY, "L", topX, topY, "L", rightX, rightY].join(' ');
+      }
+      
+      adminDivisions.selectAll(".stopped")
+          .data(places)
+          .attr("transform", proj)
+        .enter().append("circle")
+          .attr("class", "stopped")
+          .attr("r", 15)
+          .attr("fill", "red")
+          .attr("transform", proj)
+      ;
+        
+      adminDivisions.selectAll(".moving")
+          .data(places)
+          .attr("transform", proj)
+        .enter().append("svg:path")
+          //.attr("d", "m0,-5L20,0L0,5z")
+          .attr("d", triangle_ship(10,5,25))
+          .attr("class", "moving")
+          .attr("fill", "blue")
+          .attr("fill-opacity", 1)
+          .attr("transform", proj)
+      ;
+        
+      console.log("ASDSADA");
+      
+    };
 
   };
 
