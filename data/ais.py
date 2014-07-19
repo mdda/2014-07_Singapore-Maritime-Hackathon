@@ -99,16 +99,14 @@ if cmd=="current":
 #,BERTH,T6,null
 
 if cmd=="target":
-  loc=(sys.argv[2] or "").upper()
   geog=read_geog()
+  loc=(sys.argv[2] or "T6").upper()
 
-  #shape = geog[loc]['shape_py']
-  
   #target = [1.2645785,103.847206833333];  # T6
   target = geog[loc]['shape_mid']
   #pm = 0.0001
   pm = max(geog[loc]['shape_size'])
-  print target, pm
+  print loc, target, pm
   #exit(1)
   
   c.execute("SELECT ts,vid,lat,lon,course,speed FROM ais WHERE lat>? AND lat<? AND lon>? AND lon<? ORDER BY vid,ts",
@@ -125,12 +123,11 @@ if cmd=="target":
 trails_from_markers=None
 if cmd=="markers":
   geog=read_geog()
-  loc="AWJ"
+  loc=(sys.argv[2] or "AWJ").upper()
   
   target = geog[loc]['shape_mid']
-  #pm = 0.0001
   pm = max(geog[loc]['shape_size'])*2
-  print target, pm
+  print loc, target, pm
   
   c.execute("SELECT ts,vid,lat,lon,course,speed FROM ais WHERE ts>? AND ts<? AND lat>? AND lat<? AND lon>? AND lon<? ORDER BY vid,ts", 
     [v-5*60, v, target[0]-pm, target[0]+pm,target[1]-pm, target[1]+pm]
@@ -138,6 +135,9 @@ if cmd=="markers":
 
   r=c.fetchall()
   print json.dumps(r)
+  
+  trails_from_markers=r
+  print "\n\n"
 
 trails=[  # AWJ
  [1400133488, 3921, 1.239798784, 103.6278534, 123.9999924, 0.100000001],
