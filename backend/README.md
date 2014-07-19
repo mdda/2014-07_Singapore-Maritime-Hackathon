@@ -95,7 +95,7 @@ www.models.Site.ensure_exists('subsite')
 quit() 
 ```
 
-This demonstrates that, for a subsite (called 'subsite'), one can add custom properties :
+The following demonstrates that, for a subsite (called 'subsite'), one can add custom properties :
 
 ```
 python 
