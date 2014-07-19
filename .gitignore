@@ -23,3 +23,5 @@ backend/flask/www/static/images/icons-svg/
 backend/flask/www/static/jquery-mobile-demos/
 
 backend/flask/sqlite_*
+
+presentation/reveal.js/
