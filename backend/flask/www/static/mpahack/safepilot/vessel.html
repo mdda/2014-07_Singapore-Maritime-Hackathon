@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<title>MPA Hackathon 2014</title>
+		<link rel="stylesheet" href="themes/Bootstrap.css">
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile.structure-1.4.0.min.css" />
+		<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+		<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script>
+		<script src="d3/d3.js"></script>
+	</head>
+	<body>
+		<div data-role="page" data-theme="a">
+			<div data-role="header" data-position="inline">
+				<h1>MPA Hackathon 2014</h1>
+				<div data-role="navbar">
+					<ul>
+						<li><a href="index.html" data-icon="home" >Augmenter</a></li>
+						<li><a href="vessel.html" data-icon="star" class="ui-btn-active">Vessel</a></li>
+						<li><a href="voyage.html" data-icon="grid">Voyage</a></li>
+						<li><a href="provider.html" data-icon="search">Provider</a></li>
+						<li><a href="analysis.html" data-icon="gear">Stationary</a></li>
+					</ul>
+				</div>
+			</div>
+			<div data-role="content" data-theme="a">
+ <div style="float: left; width: 6%;">
+ 
+       <form>
+            	<div class="span2">Id: </div><input class="fields" id="vslRecID_n" type="float"/></BR>
+                <div class="span2">Name: </div><input class="fields" id="vsl_m" type="float"/></BR>
+                <div class="span2">Flag: </div><input class="fields" id="vslFlag_c" type="float"/></BR>
+                <div class="span2">Type: </div><input class="fields" id="vslTy_c" type="float"/></BR>
+                <div class="span2">Tonnage: </div><input class="fields" id="vslGT_q" type="float"/></BR>
+                <div class="span2">Weight: </div><input class="fields" id="vslNT_q" type="float"/></BR>
+                <div class="span2">Length: </div><input class="fields" id="vslLen_q" type="float"/></BR>
+				<div class="span2">Breadth:</div> <input class="fields" id="vslBre_q" type="float"/></BR>
+				<div class="span2">Status: </div><input class="fields" id="vslRecSt_i" type="float"/></BR>
+                <div class="span2">Craft Type:</div> <input class="fields" id="vslCraftTy_c" type="float"/></BR>
+                
+                <input type="submit" />
+            </form>
+        </div>
+     
+
+<div style="float: right; width: 85%; overflow:scroll; height:650px;">
+	 
+				<div id="datatable2"></div> 
+						</div>
+		</div>
+		</div>
+ 
+ <script>
+var rows = []
+var formatdate = d3.time.format("%b %d %Y");
+
+d3.csv("../mpadata/vessel/CV_vsl.csv", function(error, csv2)
+{
+  csv2.forEach(function(row) {
+   // row.JOB_NO = parseFloat(row.JOB_NO).toFixed(1);
+ rows.push(row);
+  }); 
+  var table2 = d3.select("#datatable2").append("table");
+      thead2 = table2.append("thead");
+      tbody2 = table2.append("tbody");
+
+   /*
+thead2.append("th").text("vslRecID_n");
+thead2.append("th").text(",vsl_m");
+thead2.append("th").text("vslFlag_c");
+thead2.append("th").text("vslTy_c");
+thead2.append("th").text("vslGT_q");
+thead2.append("th").text("vslNT_q");
+thead2.append("th").text("vslLen_q");
+thead2.append("th").text("vslBre_q");
+thead2.append("th").text("vslRecSt_i");
+thead2.append("th").text("vslCraftTy_c");
+ */
+thead2.append("th").text("ID");
+thead2.append("th").text("Name`");
+thead2.append("th").text("Flag");
+thead2.append("th").text("Type");
+thead2.append("th").text("Gross Tonnage");
+thead2.append("th").text("Net Weight");
+thead2.append("th").text("Length");
+thead2.append("th").text("Breath");
+thead2.append("th").text("Vessel Record Status ");
+thead2.append("th").text("Type of craft");
+ 
+var tr = tbody2.selectAll("tr")
+      .data(rows)
+      .enter().append("tr");
+var td = tr.selectAll("td")
+        .data(function(d) { return [d.vslRecID_n,d.vsl_m,d.vslFlag_c,d.vslTy_c,d.vslGT_q,d.vslNT_q ,d.vslLen_q,d.vslBre_q,d.vslRecSt_i,d.vslCraftTy_c]; })
+      .enter().append("td")
+        .text(function(d) { return d; });
+  var width = 80,
+      height = d3.select("table")[0][0].clientHeight,
+      mx = 10,
+      radius = 2;
+    });   
+</script>
+
+
+				 
+
+	
+	</body>
+</html>

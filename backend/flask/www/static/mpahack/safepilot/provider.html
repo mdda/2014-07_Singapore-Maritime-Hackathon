@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<title>MPA Hackathon 2014</title>
+		<link rel="stylesheet" href="themes/Bootstrap.css">
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile.structure-1.4.0.min.css" />
+		<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+		<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script>
+		<script src="d3/d3.js"></script>
+	</head>
+	<body>
+		<div data-role="page" data-theme="a">
+			<div data-role="header" data-position="inline">
+				<h1>MPA Hackathon 2014</h1>
+				<div data-role="navbar">
+					<ul>
+						<li><a href="index.html" data-icon="home"  >Augmenter</a></li>
+						<li><a href="vessel.html" data-icon="star">Vessel</a></li>
+						<li><a href="voyage.html" data-icon="grid">Voyage</a></li>
+						<li><a href="provider.html" data-icon="search" class="ui-btn-active">Provider</a></li>
+						<li><a href="analysis.html" data-icon="gear">Stationary</a></li>
+					</ul>
+				</div>
+			</div>
+			<div data-role="content" data-theme="a">
+
+				<div style="float: left; width: 6%;">
+
+				<form>
+            	<div class="span2">Id: </div><input class="fields" id="vslRecID_n" type="float"/></BR>
+                <div class="span2">Service Type: </div><input class="fields" id="vsl_m" type="float"/></BR>
+                <div class="span2">Company: </div><input class="fields" id="vslFlag_c" type="float"/></BR>
+                <div class="span2">Contact Person: </div><input class="fields" id="vslTy_c" type="float"/></BR>
+                <div class="span2">Phone: </div><input class="fields" id="vslGT_q" type="float"/></BR>
+                <div class="span2">Email: </div><input class="fields" id="vslNT_q" type="float"/></BR>
+                 
+                
+                <input type="submit" />
+            </form>
+
+
+			</div>
+	<div style="float: right; width: 85%; overflow:scroll; height:650px;">
+	 
+				<div id="datatable2"></div> 
+						</div>
+		</div>
+		</div>
+ 
+ <script>
+var rows = []
+var formatdate = d3.time.format("%b %d %Y");
+
+d3.csv("ServiceProvider.csv", function(error, csv2)
+{
+  csv2.forEach(function(row) {
+   // row.JOB_NO = parseFloat(row.JOB_NO).toFixed(1);
+ rows.push(row);
+  }); 
+  var table2 = d3.select("#datatable2").append("table");
+      thead2 = table2.append("thead");
+      tbody2 = table2.append("tbody");
+
+     thead2.append("th").text("Service");
+thead2.append("th").text("Service Provider");
+
+
+
+var tr = tbody2.selectAll("tr")
+      .data(rows)
+      .enter().append("tr");
+var td = tr.selectAll("td")
+        .data(function(d) { return [d.ServiceName,d.ServiceProviderName  ]; })
+      .enter().append("td")
+        .text(function(d) { return d; });
+  var width = 80,
+      height = d3.select("table")[0][0].clientHeight,
+      mx = 10,
+      radius = 2;
+    });   
+</script>
+
+
+				 
+
+	
+	</body>
+</html>
+
+				
+
+

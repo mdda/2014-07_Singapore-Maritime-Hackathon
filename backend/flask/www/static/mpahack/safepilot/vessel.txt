@@ -1,0 +1,19 @@
+Vessel Database
+
+
+75145 rows of data, from all flags of all vessels as at 08 July 2014, containing the following fields 
+• vslRecID_n - Unique identifier of vessel 
+• vsl_m - Name of vessel 
+• vslFlag_c - Country flag of vessel 
+• vslTy_c - Type of vessel 
+• vslGT_q - Gross Tonnage of vessel 
+• vslNT_q - Net Weight of vessel 
+• vslLen_q - Length of vessel 
+• vslBre_q - Breath of vessel 
+• vslRecSt_i - Vessel Record Status 
+• vslCraftTy_c - Type of craft 
+
+
+140 rows of data containing the following fields: 
+• vslTy_c - Vessel Type code 
+• vslTy_m - Type of Vessel Description 
