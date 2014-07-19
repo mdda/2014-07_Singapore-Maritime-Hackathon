@@ -20,6 +20,10 @@ def home_page():
 def mobile_main():
     return render_template('mpa/front.html')
 
+@app.route('/map', methods=['GET', 'POST'])
+def map_main():
+    return render_template('mpa/map.html')
+
 @app.route('/landing', methods=['GET', 'POST'])
 def landing_page():
     #return redirect("http://www.example.com/", )
