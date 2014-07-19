@@ -98,7 +98,8 @@ $(function () {
   var overlay = new google.maps.OverlayView();
   overlay.onAdd = function () {
 
-    var layer = d3.select(this.getPanes().overlayLayer).append("div").attr("class", "SvgOverlay");
+    //var layer = d3.select(this.getPanes().overlayLayer).append("div").attr("class", "SvgOverlay");
+    var layer = d3.select(this.getPanes().overlayMouseTarget).append("div").attr("class", "SvgOverlay");
     var svg = layer.append("svg");
     var adminDivisions = svg.append("g").attr("class", "AdminDivisions");
 
@@ -115,7 +116,9 @@ $(function () {
 
       // http://stackoverflow.com/questions/11909099/overlay-d3-paths-onto-google-maps
       // http://stackoverflow.com/questions/20987535/plotting-points-on-a-map-with-d3
-
+  
+      // Wish I had seen earlier : http://blog.safaribooksonline.com/2014/02/11/d3-js-maps/
+      
       function proj_places(d) {
         return "translate(" + googleMapProjection([
           d.location.longitude,
@@ -153,6 +156,10 @@ $(function () {
         return ["M", leftX, leftY, "L", topX, topY, "L", rightX, rightY].join(' ');
       }
       
+      function vessel_tooltip(d) {
+        return "ID : "+d[0]+"<br/><ul><li>dfsdf</li><li>sdfsdsdf</li></ul>";
+      }
+      
       // for(var a in { r:23, t:566}) { console.log(a); }
       // { vid : [ [ts, lat_, lon_, course, speed], ... ], ... }
 
@@ -167,6 +174,10 @@ $(function () {
               .attr("fill", "red")
               .attr("transform", proj)
           ;
+          $('.stopped'+k).tipsy({ 
+            gravity: 'n', html: true, 
+            title: function() { return vessel_tooltip(this.__data__);  }
+          });
         }
         else {
           adminDivisions.selectAll(".moving"+k)
@@ -186,6 +197,12 @@ $(function () {
               })
               .attr("transform", proj)
           ;
+          
+          // Also : http://rideme.info/blog/Adding-a-Tooltip-in-D3-to-a-Google-Maps-Overlay-36388.html
+          $('.moving'+k).tipsy({ 
+            gravity: 'n', html: true, 
+            title: function() { return vessel_tooltip(this.__data__);  }
+          });
         }
       }
         
