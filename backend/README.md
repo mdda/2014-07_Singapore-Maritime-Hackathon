@@ -124,7 +124,7 @@ rm -rf bootstrap-${V}-dist*
 ```
 
 Pull in JQuery (compatible, older version)
-------------------------------------------------------------------------
+---------------------------------------------
 
 ```
 # in ./backend
@@ -150,7 +150,14 @@ rm jquery.mobile-${V}.zip
 rm -rf jquery
 ```
 
+Pull in D3.js (if required)
+------------------------------------
 
+```
+# in ./backend
+curl -O https://github.com/mbostock/d3/blob/master/d3.min.js
+mv d3.min.js flask/www/static/js/
+```
 
 Pull in External Theme (example)
 ------------------------------------
