@@ -124,9 +124,7 @@ var places = [
                     }
                     
                     adminDivisions.selectAll(".pin")
-                      .data(places)
-                      .attr("transform", proj)
-                    .enter().append("circle", ".pin")
+                      .enter().append("circle", ".pin")
                       .attr("r", 15)
                       .attr("fill", "red")
                       .attr("transform", proj);
