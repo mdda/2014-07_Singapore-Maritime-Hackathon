@@ -16,6 +16,10 @@ def home_page():
     #return redirect("http://www.example.com/", )
     return render_template('starter.jade')
 
+@app.route('/m', methods=['GET', 'POST'])
+def mobile_main():
+    return render_template('mpa/front.html')
+
 @app.route('/landing', methods=['GET', 'POST'])
 def landing_page():
     #return redirect("http://www.example.com/", )
