@@ -41,6 +41,22 @@
     </div>
 
     <script>
+var places = [
+  {
+    name: "Wollongong, Australia",
+    location: {
+      latitude: 1.258, 
+      longitude: 103.694
+    }
+  },
+  {
+    name: "Newcastle, Australia",
+    location: {
+      latitude: 1.248, 
+      longitude: 103.644
+    }
+  }
+];
        
         $(function () {
 
@@ -57,7 +73,7 @@
                     ]           
                 });
         
-            var geoJson = provinces();
+            //var geoJson = provinces();
             var overlay = new google.maps.OverlayView();
             overlay.onAdd = function () {
 
@@ -76,7 +92,9 @@
                         return [pixelCoordinates.x + 4000, pixelCoordinates.y + 4000];
                     }
 
-                    path = d3.geo.path().projection(googleMapProjection);
+                    //path = d3.geo.path().projection(googleMapProjection);
+                    
+                    //console.log(googleMapProjection([0,0]));
                     
                     /*
                     adminDivisions.selectAll("path")
@@ -85,6 +103,7 @@
                     .enter().append("svg:path")
                         .attr("d", path);
                     */
+                    /*
                     adminDivisions.selectAll("path")
                         .data(d3.entries({"pt1":[30.2173829, -26.8686948]}))
                         .attr("d", path)
@@ -92,6 +111,40 @@
                         .attr("r", 4.5)
                         .attr("d", path)
                     ;
+                    */
+                    
+                    // http://stackoverflow.com/questions/11909099/overlay-d3-paths-onto-google-maps
+                    // http://stackoverflow.com/questions/20987535/plotting-points-on-a-map-with-d3
+
+                    function proj(d) {
+                      return "translate(" + googleMapProjection([
+                        d.location.longitude,
+                        d.location.latitude
+                      ]) + ")"
+                    }
+                    
+                    adminDivisions.selectAll(".pin")
+                      .data(places)
+                      .attr("transform", proj)
+                    .enter().append("circle", ".pin")
+                      .attr("r", 15)
+                      .attr("fill", "red")
+                      .attr("transform", proj);
+                      
+                    adminDivisions.selectAll(".puff")
+                      .data(places)
+                      .enter().append("circle", ".puff")
+                      .attr("r", 5)
+                      .attr("fill", "blue")
+                      .attr("transform", function(d) {
+                        return "translate(" + googleMapProjection([
+                          d.location.longitude,
+                          d.location.latitude
+                        ]) + ")"
+                      });
+                      
+                    console.log("ASDSADA");
+                    
                 };
 
             };
