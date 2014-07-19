@@ -208,15 +208,15 @@ if cmd=="trails":
     arr=[]
     n = 1
     if speed>1:
-      n=5
+      n=10
       
     for t in range(0,n):
-      scale = 0.001   # 5 min intervals?
+      scale = 0.0003   # 5 min intervals?
       lat_ = lat + t*scale*speed * math.cos(math.radians(course))
       lon_ = lon + t*scale*speed * math.sin(math.radians(course))
       
-      #arr.append([ts + t*5*60, lat_, lon_, course, speed]) # This is what it should be...
-      arr.append([[ts + t*5*60, lat_, lon_, course, speed]]) 
+      arr.append([ts + t*5*60, lat_, lon_, course, speed]) # This is what it should be...
+      #arr.append([[ts + t*5*60, lat_, lon_, course, speed]]) 
       
     res[vid]=arr
   print "// { vid : [ [ts, lat_, lon_, course, speed], ... ], ... }"
