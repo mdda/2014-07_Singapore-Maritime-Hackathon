@@ -177,7 +177,7 @@ Run flask locally
 
 ```
 cd flask
-python run.py
+FLASK_DEBUG=True python run.py
 # Browser : http://0.0.0.0:7882/
 # http://0.0.0.0:7882/static/blog2.html
 ```

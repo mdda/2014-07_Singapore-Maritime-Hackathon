@@ -10,8 +10,6 @@ from www import app
 ### http://flask.pocoo.org/docs/patterns/sqlite3/
 ### http://www.tutorialspoint.com/sqlite/sqlite_python.htm
 
-
-
 print "Engine created with DATABASE=%s" % (app.config['DATABASE'],)
 engine = create_engine(app.config['DATABASE'], convert_unicode=True) #, echo=True) 
 #engine = create_engine('mysql://USER:PASSWORD@localhost/hackathon', pool_recycle=3600, convert_unicode=True)
