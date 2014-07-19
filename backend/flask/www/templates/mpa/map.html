@@ -81,18 +81,18 @@ for(var k in trails_old) {
 $(function () {
   var $map = $("#map");
   var map = new google.maps.Map($map[0], {
-          zoom: 12,
-          //mapTypeId: google.maps.MapTypeId.ROADMAP,
-          //mapTypeId: google.maps.MapTypeId.SATELLITE,
-          mapTypeId: google.maps.MapTypeId.TERRAIN,
-          //center: new google.maps.LatLng(-18.2, 35.1), // Mozambique
-          //center: new google.maps.LatLng(1.258, 103.694), // Singapore
-          center: new google.maps.LatLng(1.269997, 103.795875), // Singapore Pasir Panjang           
-          styles:[
-           //{"stylers": [{"saturation": -75},{"lightness": 75}]}
-           {"stylers": [{"saturation": -25},{"lightness": 25}]}
-          ]           
-      });
+    zoom: 12,
+    //mapTypeId: google.maps.MapTypeId.ROADMAP,
+    //mapTypeId: google.maps.MapTypeId.SATELLITE,
+    mapTypeId: google.maps.MapTypeId.TERRAIN,
+    //center: new google.maps.LatLng(-18.2, 35.1), // Mozambique
+    center: new google.maps.LatLng(1.258, 103.694), // Singapore
+    //center: new google.maps.LatLng(1.269997, 103.795875), // Singapore Pasir Panjang           
+    styles:[
+      //{"stylers": [{"saturation": -75},{"lightness": 75}]}
+      {"stylers": [{"saturation": -25},{"lightness": 25}]}
+    ]           
+  });
 
   //var geoJson = provinces();
   
