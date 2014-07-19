@@ -1,5 +1,11 @@
 
 ```
+yum install python-virtualenv python-pip
+```
+
+```
+##virtualenv --no-site-packages env
+virtualenv env
 . ../env/bin/activate
 pip install Flask
 pip install Flask-SQLAlchemy
@@ -7,6 +13,10 @@ pip install py-bcrypt  # For simple authentication
 pip install requests   # For requests to other services
 pip install pyaml      # For config reading
 pip install pyjade     # See : http://jade-lang.com/
+
+# or, in one line: 
+pip install Flask Flask-SQLAlchemy py-bcrypt requests pyaml pyjade
+
 ```
 
 Needed for MySQL

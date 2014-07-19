@@ -10,15 +10,3 @@ I'm in a bit of a hurry right now (can you guess why?) but I'll backport the int
 
 In the main directory
 --------------------------
-```
-yum install python-virtualenv 
-```
-
-```
-virtualenv --no-site-packages env
-. env/bin/activate
-pip install Flask
-pip install Flask-SQLAlchemy
-pip install py-bcrypt
-```
-

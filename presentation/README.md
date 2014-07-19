@@ -12,7 +12,7 @@ wget https://github.com/hakimel/reveal.js/archive/${V}.zip
 unzip -t ${V}.zip
 unzip ${V}.zip
 mv reveal.js-${V}/index.html reveal.js-${V}/index-orig.html 
-cp -R reveal.js-${V} reveal.js/
+cp -R reveal.js-${V}/* reveal.js/
 rm ${V}.zip
 ```
 
