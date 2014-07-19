@@ -122,6 +122,7 @@ if cmd=="target":
 #1.35,WEST JURONG ANCHORAGE,"MDSYS.SDO_GEOMETRY(2003,8307,NULLMDSYS.SDO_ELEM_INFO_ARRAY(1,1003,1)MDSYS.SDO_ORDINATE_ARRAY(103.62375,1.238417,103.648633,1.250033,103.652583,1.24175,103.627683,1.230117,103.62375,1.238417))",
 #ANCHORAGE,AWJ,null
 
+trails_from_markers=None
 if cmd=="markers":
   geog=read_geog()
   loc="AWJ"
@@ -136,7 +137,7 @@ if cmd=="markers":
   )  # X mins
 
   r=c.fetchall()
-  print json.dumps(r)    
+  print json.dumps(r)
 
 trails=[  # AWJ
  [1400133488, 3921, 1.239798784, 103.6278534, 123.9999924, 0.100000001],
@@ -199,7 +200,10 @@ trails=[  # AWJ
  [1400133563, 95150, 1.233720064, 103.6268997, 200.2136993, 4.606584072],
 ]
 
-if cmd=="trails":
+if cmd=="trails" or (trails_from_markers is not None):
+  if trails_from_markers is not None:
+    trails=trails_from_markers
+    
   import math
   res={}
   for r in trails:
@@ -222,18 +226,13 @@ if cmd=="trails":
   print "// { vid : [ [ts, lat_, lon_, course, speed], ... ], ... }"
   print json.dumps(res)    
 
-  """
-  c.execute("SELECT ts,vid,lat,lon,course,speed FROM ais WHERE ts>? AND ts<? AND lat>? AND lat<? AND lon>? AND lon<? ORDER BY vid,ts", 
-    [v-5*60, v, target[0]-pm, target[0]+pm,target[1]-pm, target[1]+pm]
-  )  # X mins
 
-  print "["
-  for r in c.fetchall():
-    l = list(r)
-    print(" %s," % (l,))
-  print " [0,0,0,0,0,0]\n];"
-  """
-  
+
+
+
+
+
+
 
 
 connection.close()
