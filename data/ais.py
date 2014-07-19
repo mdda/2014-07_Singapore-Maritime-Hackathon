@@ -218,7 +218,7 @@ if cmd=="trails":
       arr.append([(ts + t*5*60, lat_, lon_, course, speed)]) 
       
     res[vid]=arr
-  print "// { vid : [ ts, lat_, lon_, course, speed ] }"
+  print "// { vid : [ [ts, lat_, lon_, course, speed], ... ], ... }"
   print json.dumps(res)    
 
   """
