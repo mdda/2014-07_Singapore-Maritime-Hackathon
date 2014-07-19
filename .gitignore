@@ -9,7 +9,10 @@ backend/bootstrap*
 
 backend/flask/www/static/js/jquery*
 backend/flask/www/static/css/jquery*
+
 backend/flask/www/static/css/bootstrap*
+
+backend/flask/www/static/js/d3.v3.min.js
 
 backend/flask/www/static/fonts/glyphicons-halflings-regular*
 
