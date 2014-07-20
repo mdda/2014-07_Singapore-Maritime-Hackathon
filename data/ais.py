@@ -241,7 +241,7 @@ if cmd=="entry": # or (trails_from_markers is not None):
   for r in trails:  # This is the entry version
     (ts, vid, lat, lon, course, speed)=r
     
-    c.execute("SELECT ts,vid,lat,lon,course,speed FROM ais WHERE ts>? AND ts<? AND vid=? ORDER BY vid,ts", 
+    c.execute("SELECT ts,vid,lat,lon,course,speed FROM ais WHERE ts>? AND ts<? AND vid=? ORDER BY ts DESC", 
       [v - 24 *60 *60, v, vid]
     )  # X mins
 
