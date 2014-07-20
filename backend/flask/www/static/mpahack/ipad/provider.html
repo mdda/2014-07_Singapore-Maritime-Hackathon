@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<title>MPA Hackathon 2014</title>
+	  <link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+   <script type="text/javascript" SRC="bootstrap/js/jquery.js"></script> 
+   <script type="text/javascript" SRC="bootstrap/js/jquery-ui.js"></script> 
+   <SCRIPT   type="text/javascript" SRC="bootstrap/js/bootstrap.js"></SCRIPT>
+		<script src="d3/d3.js"></script>
+	</head>
+	<body>
+		 
+		 <div >
+				<div class="container-fluid">
+				
+		 		 
+				<div class="navbar-inner" >
+				 <ul class="nav nav-pills">
+					<div>
+					 <h1 class="span12" style="text-align: center;font-size:28px;">MPA Hackathon 2014</h1>
+					 </div>
+						<li><a href="index.html" data-icon="home" class="span3" style="text-align: center;font-size:28px;border: 2px solid #000;">Active Map</a></li>
+						 
+						<li><a href="voyage.html" data-icon="grid" class="span3" style="text-align: center;font-size:28px;border: 2px solid #000;">Vessel Search</a></li>
+						<li><a href="provider.html" data-icon="search" class="span3" style="text-align: center;font-size:28px;border: 2px solid #000;">Vessel Details</a></li>
+						<li><a href="analysis.html" data-icon="gear"class="span3" style="text-align: center;font-size:28px;border: 2px solid #000;">Map Insights</a></li>
+					</ul>
+				</div>
+				
+			 </div>
+		</div>
+		 <br>
+
+			<div  style="float:left;  width: 40%;	margin:0 ">
+		 
+		 
+  <form>
+            	<div class="span2">Id: </div><input class="input-medium"  id="vslRecID_n" type="text"/></BR> 
+                <div class="span2">Voyage: </div><input class="input-medium" value="HSA001 "  id="vsl_m" type="text"/></BR>
+                <div class="span2">Vessel: </div><input class="input-medium" value="KOTA HASIL" id="vsl_m" type="text"/></BR>
+                <div class="span2">Ship Agent: </div><input class="input-medium"  value="CNF SHIPPING AGENCIES PTE LTD " id="vsl_m" type="text"/></BR>
+                <div class="span2">Load Port: </div><input class="input-medium"  value="PHMNL" id="vslFlag_c" type="text"/> 
+                 ETD:  <input class="input-small"  id="vslTy_c" value="14/05/2014" type="text"/></BR>
+                 <div class="span2">Destination: </div><input class="input-medium"  value="IDJKT"  id="vslFlag_c" type="text"/> 
+                  ETA:  <input class="input-small"  id="vslTy_c" value="24/05/2014" type="text"/></BR>
+                <div class="span2">SIN ETA: </div><input class="input-medium" value="19/05/2014" id="vslGT_q" type="text"/></BR>
+                <div class="span2">SIN ETD: </div><input class="input-medium" value="23/05/2014"  id="vslNT_q" type="text"/></BR>
+                <div class="span2">Terminal: </div><input class="input-medium" value="BRANI1" id="vslLen_q" type="text"/></BR>
+				<div class="span2">20':</div> <input class="input-small" value="225" id="vslBre_q" type="text"/>
+				<input class="input-small"  value="225" id="vslBre_q" type="text"/></BR>
+				<div class="span2">40': </div><input class="input-small"  value="204" id="vslRecSt_i" type="text"/>
+				<input class="input-small"  value="170" id="vslBre_q" type="text"/></BR>
+                <div class="span2">45':</div> <input class="input-small"  id="vslCraftTy_c" type="text"/>
+                <input class="input-small"  id="vslBre_q" type="text"/></BR>
+				<div class="span2">Open Top:</div> <input class="input-small"  id="vslBre_q" type="text"/>
+				<input class="input-small"  id="vslBre_q" type="text"/></BR>
+				<div class="span2">High Cube: </div><input class="input-small"  id="vslRecSt_i" type="text"/>
+				<input class="input-small"  id="vslBre_q" type="text"/></BR>
+                <div class="span2">DG:</div> <input class="input-small"  value="HAZMAT" id="vslCraftTy_c" type="text"/>
+	            <input class="input-small"  id="vslBre_q" type="text"/></BR>
+	
+                <div class="span2"><button   class="btn btn-medium   btn-primary" type="submit"   NAME="btnSave"   >Submit</button></div>
+
+            </form>
+			</div>
+				<div style="float: right;align:center;  width: 40%;">
+
+	<div style="float: right;  overflow:scroll; height:650px;">
+	 
+				<div id="datatable2"></div> 
+	 	<p>
+				<form>
+            	<div class="span2">Id: </div><input class="input-large" id="vslRecID_n" type="text"/></BR>
+                <div class="span2">Service Type: </div><input class="input-large" id="vsl_m" type="text"/></BR>
+                <div class="span2">Company: </div><input class="input-large" id="vslFlag_c" type="text"/></BR>
+                <div class="span2">Contact Person: </div><input class="input-large" id="vslTy_c" type="text"/></BR>
+                <div class="span2">Phone: </div><input class="input-large" id="vslGT_q" type="text"/></BR>
+                <div class="span2">Email: </div><input class="input-large" id="vslNT_q" type="text"/></BR>
+                 
+                
+                   <div class="span2"><button   class="btn btn-medium   btn-primary" type="submit"   NAME="btnSave"   >Submit</button></div>
+            </form>
+
+
+			</div>
+				
+		</div>
+		</div>
+ 
+ <script>
+var rows = []
+var formatdate = d3.time.format("%b %d %Y");
+
+d3.csv("ServiceProvider.csv", function(error, csv2)
+{
+  csv2.forEach(function(row) {
+   // row.JOB_NO = parseFloat(row.JOB_NO).toFixed(1);
+ rows.push(row);
+  }); 
+  var table2 = d3.select("#datatable2").append("table");
+      thead2 = table2.append("thead");
+      tbody2 = table2.append("tbody");
+
+     thead2.append("th").text("Service");
+thead2.append("th").text("Service Provider");
+
+
+
+var tr = tbody2.selectAll("tr")
+      .data(rows)
+      .enter().append("tr");
+var td = tr.selectAll("td")
+        .data(function(d) { return [d.ServiceName,d.ServiceProviderName  ]; })
+      .enter().append("td")
+        .text(function(d) { return d; });
+  var width = 80,
+      height = d3.select("table")[0][0].clientHeight,
+      mx = 10,
+      radius = 2;
+    });   
+</script>
+
+
+				 
+
+	
+	</body>
+</html>
+
+				
+
+

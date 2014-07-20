@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<title>Situational Awareness Anywhere</title>
+		  <link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+   <script type="text/javascript" SRC="bootstrap/js/jquery.js"></script> 
+   <script type="text/javascript" SRC="bootstrap/js/jquery-ui.js"></script> 
+   <SCRIPT   type="text/javascript" SRC="bootstrap/js/bootstrap.js"></SCRIPT>
+		<script src="d3/d3.js"></script>
+		<STYLE>
+		nav nav-pills {
+    		font-size: 24px;
+		}
+		</STYLE>
+	</head>
+	<body>
+			 <div >
+				<div class="container-fluid">
+				
+		 		 
+				<div class="navbar-inner" >
+				 <ul class="nav nav-pills">
+					<div>
+					 <h1 class="span12" style="text-align: center;font-size:28px;">Situational Awareness Anywhere</h1>
+					 </div>
+						<li><a href="index.html" data-icon="home" class="span3" style="text-align: center;font-size:28px;border: 2px solid #000;">Active Map</a></li>
+						 
+						<li><a href="voyage.html" data-icon="grid" class="span3" style="text-align: center;font-size:28px;border: 2px solid #000;">Vessel Search</a></li>
+						<li><a href="provider.html" data-icon="search" class="span3" style="text-align: center;font-size:28px;border: 2px solid #000;">Vessel Details</a></li>
+						<li><a href="analysis.html" data-icon="gear"class="span3" style="text-align: center;font-size:28px;border: 2px solid #000;">Map Insights</a></li>
+					</ul>
+				</div>
+				
+			 </div>
+		</div>
+		<br>
+			<div  style="width:1150px;	margin:0 ">
+		 
+			
+		 
+			
+ <div style="float: left;">
+ 
+       <form>
+            	<div class="span2">Id: </div><input class="input-medium"  id="vslRecID_n" type="text"/></BR>
+                <div class="span2">Name: </div><input class="input-medium" id="vsl_m" type="text"/></BR>
+                <div class="span2">Flag: </div><input class="input-medium" id="vslFlag_c" type="text"/></BR>
+                <div class="span2">Type: </div><input class="input-medium" id="vslTy_c" type="text"/></BR>
+                <div class="span2">Tonnage: </div><input class="input-medium" id="vslGT_q" type="text"/></BR>
+                <div class="span2">Weight: </div><input class="input-medium" id="vslNT_q" type="text"/></BR>
+                <div class="span2">Length: </div><input class="input-medium" id="vslLen_q" type="text"/></BR>
+				<div class="span2">Breadth:</div> <input class="input-medium" id="vslBre_q" type="text"/></BR>
+				<div class="span2">Status: </div><input class="input-medium" id="vslRecSt_i" type="text"/></BR>
+                <div class="span2">Craft Type:</div> <input class="input-medium" id="vslCraftTy_c" type="text"/></BR>
+                
+               <div class="span2"><button   class="btn btn-medium   btn-primary" type="submit"   NAME="btnSave"   >Submit</button></div>
+            </form>
+        </div>
+     
+ 	<div style="float: right; overflow:scroll; height:500px;">
+	 
+				<div id="datatable2"></div> 
+						 
+		</div>
+		 
+ </div>
+  </body>
+ <script>
+var rows = []
+var formatdate = d3.time.format("%b %d %Y");
+
+d3.csv("CV_vsl.csv", function(error, csv2)
+{
+  csv2.forEach(function(row) {
+   // row.JOB_NO = parseFloat(row.JOB_NO).toFixed(1);
+ rows.push(row);
+  }); 
+  var table2 = d3.select("#datatable2").append("table");
+      thead2 = table2.append("thead");
+      tbody2 = table2.append("tbody");
+
+thead2.append("th").text("ID");
+thead2.append("th").text("Name`");
+thead2.append("th").text("Flag");
+thead2.append("th").text("Type");
+thead2.append("th").text("Gross Tonnage");
+thead2.append("th").text("Net Weight");
+thead2.append("th").text("Length");
+thead2.append("th").text("Breath");
+thead2.append("th").text("Vessel Record Status ");
+thead2.append("th").text("Type of craft");
+ 
+var tr = tbody2.selectAll("tr")
+      .data(rows)
+      .enter().append("tr");
+var td = tr.selectAll("td")
+        .data(function(d) { return [d.vslRecID_n,d.vsl_m,d.vslFlag_c,d.vslTy_c,d.vslGT_q,d.vslNT_q ,d.vslLen_q,d.vslBre_q,d.vslRecSt_i,d.vslCraftTy_c]; })
+      .enter().append("td")
+        .text(function(d) { return d; });
+  var width = 80,
+      height = d3.select("table")[0][0].clientHeight,
+      mx = 10,
+      radius = 2;
+    });   
+</script>
+
+
+ 
+</html>

@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		  <meta name="viewport" content="initial-scale=1.0, user-scalable=yes"/>
+		<title>Situational Awareness Anywhere</title>
+		  <link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+   <script type="text/javascript" SRC="bootstrap/js/jquery.js"></script> 
+   <script type="text/javascript" SRC="bootstrap/js/jquery-ui.js"></script> 
+   <SCRIPT   type="text/javascript" SRC="bootstrap/js/bootstrap.js"></SCRIPT>
+
+		  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+		<script src="d3/d3.js"></script>
+		 <style type="text/css">	
+ 
+
+ 
+		html, body, #map {
+
+		 
+			width: 100%;
+			height: 90%;
+			
+			
+		}
+
+		.stations, .stations svg {
+			position: absolute;
+		}
+
+		.stations svg {
+			width: 60px;
+			height: 20px;
+			padding-right: 100px;
+			font: 10px sans-serif;
+		}
+		
+		.stations circle {
+			fill: brown;
+			stroke: black;
+			stroke-width: 1.5px;
+		}
+      
+    </style>
+	</head>
+	<body>
+		 
+		 
+				 <div >
+				<div class="container-fluid">
+				
+		 		 
+				<div class="navbar-inner" >
+				 <ul class="nav nav-pills">
+				 	<div>
+					 <h1 class="span12" style="text-align: center;font-size:28px;">Situational Awareness Anywhere</h1>
+					 </div>
+						<li><a href="index.html" data-icon="home" class="span3" style="text-align: center;font-size:28px;border: 2px solid #000;">Active Map</a></li>
+						 
+						<li><a href="voyage.html" data-icon="grid" class="span3" style="text-align: center;font-size:28px;border: 2px solid #000;">Vessel Search</a></li>
+						<li><a href="provider.html" data-icon="search" class="span3" style="text-align: center;font-size:28px;border: 2px solid #000;">Vessel Details</a></li>
+						<li><a href="analysis.html" data-icon="gear"class="span3" style="text-align: center;font-size:28px;border: 2px solid #000;">Map Insights</a></li>
+					</ul>
+				</div>
+				
+			 </div>
+		</div>
+	 <br>
+		<div id="map"></div>
+	 
+ <script type="text/javascript">
+		var data=[[1.331130385,104.1035156,117.9429321,0.086578332],[1.29415679,104.1505814,88.77935791,0.184158713],[1.339425564,104.274498,63.43494797,0.130397052],[1.174368978,103.9863968,144.6504669,0.066383071],[1.29522717,104.1895981,0,0.052558042],[1.171964407,103.9629822,161.0480194,0.014326679],[1.265025854,103.764267,282.4134521,6.123829842],[1.287694097,103.7645416,0,0],[1.335296154,104.305397,315,0.054980222],[1.304181218,104.1947556,192.4410706,0.075804986],[1.295772552,104.1236191,92.79953766,0.156398103],
+[1.377084494,104.0919571,270,0.097192228],[1.462383986,104.4503555,140.1944275,0.15181911],[1.166812897,103.9814377,51.1086235,0.035495471],[1.331225872,104.3084793,270,0.019438444],[1.26282835,103.7265854,225,0.013589133],
+[1.331231952,104.2714844,243.4349518,0.260794103]];
+		var x0=1.331130385,y0=104.1035156;
+		var map = new google.maps.Map(d3.select("#map").node(), {
+			zoom: 10,
+			center: new google.maps.LatLng(x0,y0), //first position
+			mapTypeId: google.maps.MapTypeId.TERRAIN
+		});
+		
+		d3.json("vessel-positions.json", function(d/*doesn't work at the moment*/) {
+			var overlay = new google.maps.OverlayView();
+			overlay.onAdd = function() {
+				var layer = d3.select(this.getPanes().overlayLayer).append("div").attr("class", "stations");
+				// Draw each marker as a separate SVG element.
+				overlay.draw = function() {
+					var projection = this.getProjection(),
+					padding = 10;
+					var marker = layer.selectAll("svg")
+						.data(d3.values(data))
+						.each(transform) // update existing markers
+						.enter().append("svg:svg")
+						.each(transform)
+						.attr("class", "marker");
+					     marker.append("svg:circle")
+							.attr("r", 4.5)
+							.attr("cx", padding)
+							.attr("cy", padding);
+					
+					function transform(position) {
+						var d = new google.maps.LatLng(position[0], position[1]);
+						d = projection.fromLatLngToDivPixel(d);
+						return d3.select(this)
+							.style("left", d.x + "px")
+							.style("top", d.y + "px");
+					}
+					
+				};
+			};
+			// Bind our overlay to the map…
+			overlay.setMap(map);
+		});
+	</script>
+  </body>
+</html>
