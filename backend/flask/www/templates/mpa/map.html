@@ -268,8 +268,9 @@ if(screen == "now") {
             })
             .attr("class", "history"+k)
             .attr("fill", function(d,i) { 
-              if(i==0){return "yellow"}
-              else    {return "grey"}
+              console.log(i);
+              if(i==0){return "grey"}
+              else    {return "yellow"}
             })
             .attr("fill-opacity", function(d,i) {
               //console.log(k+":["+i+"]");

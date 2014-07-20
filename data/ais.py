@@ -248,7 +248,8 @@ if cmd=="entry": # or (trails_from_markers is not None):
     arr=[]
     #for t in range(0,n):
     for t in c.fetchall():
-      arr.append([ts, lat, lon, course, speed, vid]) # This is what it should be...
+      (ts_, vid_, lat_, lon_, course_, speed_)=t
+      arr.append([ts_, lat_, lon_, course_, speed_, vid_]) # This is what it should be...
       
     res[vid]=arr
     
