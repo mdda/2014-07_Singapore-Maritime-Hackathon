@@ -21,17 +21,16 @@
 			 <div >
 				<div class="container-fluid">
 				
-		 		 
 				<div class="navbar-inner" >
 				 <ul class="nav nav-pills">
 					<div>
 					 <h1 class="span12" style="text-align: center;font-size:28px;">Situational Awareness Anywhere</h1>
 					 </div>
-						<li><a href="index.html" data-icon="home" class="span3" style="text-align: center;font-size:28px;border: 2px solid #000;">Active Map</a></li>
+						<li><a href="/map/now" data-icon="home" class="span3" style="text-align: center;font-size:28px;border: 2px solid #000;">Active Map</a></li>
 						 
 						<li><a href="voyage.html" data-icon="grid" class="span3" style="text-align: center;font-size:28px;border: 2px solid #000;">Vessel Search</a></li>
 						<li><a href="provider.html" data-icon="search" class="span3" style="text-align: center;font-size:28px;border: 2px solid #000;">Vessel Details</a></li>
-						<li><a href="analysis.html" data-icon="gear"class="span3" style="text-align: center;font-size:28px;border: 2px solid #000;">Map Insights</a></li>
+						<li><a href="/map/past" data-icon="gear"class="span3" style="text-align: center;font-size:28px;border: 2px solid #000;">Map Insights</a></li>
 					</ul>
 				</div>
 				
@@ -39,17 +38,16 @@
 		</div>
 		<br>
 
-		 <div class="container-fluid"><div class="span12">Voygage&nbsp;search<input class="input-medium"  id="vslRecID_n" type="text" placeholder='vessel name, id, etc'/><button   class="btn btn-medium   btn-primary" type="submit"   NAME="btnSave"   >Submit</button></div>
-            
-      
-     
-<div  class="span12" style="   overflow:scroll; height:650px;">
-	 
+	 <div class="container-fluid">
+			<span class='span4' style='padding-right:4px;'>Voygage&nbsp;search</span><input class="input-medium"  id="vslRecID_n" type="text" placeholder='vessel name, id, etc'/><button style='padding-left:4px;' class="btn btn-medium   btn-primary" type="submit"   NAME="btnSave">Submit</button>
+			<div  class="span12" style="   overflow:scroll; height:650px;">	 
 				<div id="datatable2"></div> 
-		
-		</div>				 
+			</div>				 
 		</div>
 	</div>
+	</div>
+            
+      
  </body>
  <script>
 var rows = []
