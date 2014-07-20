@@ -22,7 +22,8 @@ cmd = sys.argv[1].lower()
 connection = sqlite3.connect(db_file)
 
 #CREATE INDEX ais_ts ON ais (ts);               # ?mins
-#CREATE INDEX ais_latlon ON ais (lat,lon);      # 3mins
+#CREATE INDEX ais_vid ON ais (vid);             # <4mins
+#CREATE INDEX ais_latlon ON ais (lat,lon);      # ~3mins
 
 """.schema ais
 CREATE TABLE AIS (
@@ -82,7 +83,7 @@ c = connection.cursor()
 t_now="2014-05-15 14:00:00"
 ts = datetime.datetime.strptime(t_now, "%Y-%m-%d %H:%M:%S")  # 2014-05-15 14:00:00
 v = time.mktime(ts.timetuple())
-print "Special time = %d" % (v,)
+print "//Special time = %d" % (v,)
 
 if cmd=="current":
   c.execute("SELECT ts,vid,lat,lon,course,speed FROM ais WHERE ts>? AND ts<? ORDER BY vid,ts", [v-20*60, v])  # X mins
@@ -134,6 +135,9 @@ if cmd=="markers":
   )  # X mins
 
   r=c.fetchall()
+  
+  print "// Markers in last 5 mins from %s" % (loc,)
+  print "// { vid : [ [ts, lat_, lon_, course, speed, vid], ... ], ... }"
   print json.dumps(r)
   
   trails_from_markers=r
@@ -222,6 +226,33 @@ if cmd=="trails" or (trails_from_markers is not None):
       arr.append([ts + t*5*60, lat_, lon_, course, speed, vid]) # This is what it should be...
       
     res[vid]=arr
+  print "// Future Trails"
+  print "// { vid : [ [ts, lat_, lon_, course, speed, vid], ... ], ... }"
+  print json.dumps(res)    
+  print "\n\n"
+  
+
+if cmd=="entry": # or (trails_from_markers is not None):
+  if trails_from_markers is not None:
+    trails=trails_from_markers
+
+  import math
+  res={}
+  for r in trails:  # This is the entry version
+    (ts, vid, lat, lon, course, speed)=r
+    
+    c.execute("SELECT ts,vid,lat,lon,course,speed FROM ais WHERE ts>? AND ts<? AND vid=? ORDER BY vid,ts", 
+      [v - 24 *60 *60, v, vid]
+    )  # X mins
+
+    arr=[]
+    #for t in range(0,n):
+    for t in c.fetchall():
+      arr.append([ts, lat, lon, course, speed, vid]) # This is what it should be...
+      
+    res[vid]=arr
+    
+  print "// Historical Trails"
   print "// { vid : [ [ts, lat_, lon_, course, speed, vid], ... ], ... }"
   print json.dumps(res)    
 

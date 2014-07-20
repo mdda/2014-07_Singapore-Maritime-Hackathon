@@ -132,7 +132,7 @@ $(function () {
         ]) + ")"
       }
       function proj(d) {
-        console.log(d);
+        //console.log(d);
         return "translate(" + googleMapProjection([
           d[2],d[1]
         ]) + ")"
@@ -163,11 +163,15 @@ $(function () {
       }
       
       function vessel_tooltip(d) {
-        return "ID : "+d[5]+"<br/><ul><li>dfsdf</li><li>sdfsdsdf</li></ul>";
+        
+        return "ID : "+d[5]+"<br/><ul><li>Cargo Vessel</li><li>Destination : T06</li></ul>";
       }
       
       // for(var a in { r:23, t:566}) { console.log(a); }
       // { vid : [ [ts, lat_, lon_, course, speed, vid], ... ], ... }
+
+      var screen = "Map Screen = {{screen}}";
+      console.log(screen);
 
       for(var k in trails) {
         if(trails[k].length == 1) {
@@ -198,7 +202,7 @@ $(function () {
               .attr("class", "moving"+k)
               .attr("fill", "green")
               .attr("fill-opacity", function(d,i) {
-                console.log(k+":["+i+"]");
+                //console.log(k+":["+i+"]");
                 return (100 - i/5 * 100)/100;
               })
               .attr("transform", proj)
@@ -212,7 +216,7 @@ $(function () {
         }
       }
         
-      console.log("ASDSADA");
+      console.log("Map Render Done");
       
     };
 
