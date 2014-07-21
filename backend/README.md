@@ -152,6 +152,7 @@ rm -rf jquery
 
 Pull in JQuery-UI (though this may be superceded)
 -------------------------------------------------------
+In case someone needs it ... :
 
 ```
 # in ./backend
