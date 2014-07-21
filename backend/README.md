@@ -150,6 +150,18 @@ rm jquery.mobile-${V}.zip
 rm -rf jquery
 ```
 
+Pull in JQuery-UI (though this may be superceded)
+-------------------------------------------------------
+
+```
+# in ./backend
+V=1.11.0
+wget http://jqueryui.com/resources/download/jquery-ui-${V}.zip
+unzip jquery-ui-${V}.zip 
+mv jquery-ui-${V} flask/www/static/
+```
+
+
 Pull in D3.js (if required)
 ------------------------------------
 
